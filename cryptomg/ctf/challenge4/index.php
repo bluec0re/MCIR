@@ -48,7 +48,7 @@ function checkAuth($username, $password){
 		}
 	}
 }
-$auth = checkAuth(htmlentities(@$_POST['username']), md5(@$_POST['password']));
+$auth = checkAuth(mysqli_real_escape_string($link, @$_POST['username']), md5(@$_POST['password']));
 if($auth){
 		$message = "Welcome, $username2";
 }

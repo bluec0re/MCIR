@@ -20,9 +20,9 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 
 include "db.php";
 if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])){
-	$username = htmlentities($_POST['username']);
+	$username = mysqli_real_escape_string($link, $_POST['username']);
 	$password = md5($_POST['password']);
-	$email = htmlentities($_POST['email']);
+	$email = mysqli_real_escape_string($link, $_POST['email']);
 	
 	$sql_check_user = "SELECT * FROM challenge4_users WHERE username='$username'";
 	$query_check_user = mysqli_query($GLOBALS["___mysqli_ston"], $sql_check_user) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));

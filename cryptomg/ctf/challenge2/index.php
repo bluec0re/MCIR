@@ -45,7 +45,7 @@ if($page == "logout"){
 if(!is_null(@$_POST['username']) && !is_null(@$_POST['password'])){
 	$username = htmlentities(@$_POST['username']);
 	$password = encode(encrypt(htmlentities(@$_POST['password']), $cipher, $mode, $key, $iv), 4);
-	$auth =checkAuth($username, $password);
+	$auth =checkAuth(mysqli_real_escape_string($link, $username), $password);
 }elseif(!is_null(@$_SESSION['username']) && !is_null(@$_SESSION['password']))
 	$auth = checkAuth($_SESSION['username'], $_SESSION['password']);
 
