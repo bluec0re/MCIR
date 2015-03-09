@@ -25,8 +25,8 @@ session_start();
 
 function checkAuth($username, $password){
 	$sql_check_auth = "SELECT * FROM challenge2_users WHERE username='$username' AND password='$password'";
-	$query_check_auth = mysql_query($sql_check_auth);
-	if(mysql_num_rows($query_check_auth) == 1){
+	$query_check_auth = mysqli_query($GLOBALS["___mysqli_ston"], $sql_check_auth);
+	if(mysqli_num_rows($query_check_auth) == 1){
 		$_SESSION['username'] = $username;
 		$_SESSION['password'] = $password;
 		return true;
@@ -117,8 +117,8 @@ elseif($auth == true && is_null(@$_GET['page'])){
 				<ul>
 				<?php if($page == "articles"){
 						$sql_get_articles = "SELECT * FROM challenge2_articles";
-						$query_get_articles = mysql_query($sql_get_articles);
-						while($row = mysql_fetch_array($query_get_articles)){
+						$query_get_articles = mysqli_query($GLOBALS["___mysqli_ston"], $sql_get_articles);
+						while($row = mysqli_fetch_array($query_get_articles)){
 							print "<li><a href=\"./index.php?cipher=$p_cipher&encoding=$p_encoding&mode=$p_mode&page=".htmlentities($page)."&id=".encode(encrypt($row['id'], $cipher, $mode, $key, $iv), $p_encoding)."\">".$row['title']."</a></li>";
 						}
 					} ?>
@@ -131,9 +131,9 @@ elseif($auth == true && is_null(@$_GET['page'])){
 				if(!is_null(@$_GET['id']) && $page == "articles"){
 								$article_id = decrypt(decode(@$_GET['id'], $p_encoding), $cipher, $mode, $key, $iv);
 								$sql_get_article = "SELECT * FROM challenge2_articles WHERE id='$article_id'";
-								$query_get_article = mysql_query($sql_get_article) or die(mysql_error());
-								if(mysql_num_rows($query_get_article)){
-									while($result = mysql_fetch_array($query_get_article)){
+								$query_get_article = mysqli_query($GLOBALS["___mysqli_ston"], $sql_get_article) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+								if(mysqli_num_rows($query_get_article)){
+									while($result = mysqli_fetch_array($query_get_article)){
 										$title = $result['title'];
 										$body = $result['content'];
 										print "<h1>$title</h1>";

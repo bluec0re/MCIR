@@ -81,12 +81,12 @@ class ADORecordSet_mysqlt extends ADORecordSet_mysql{
 		
 		switch ($mode)
 		{
-		case ADODB_FETCH_NUM: $this->fetchMode = MYSQL_NUM; break;
-		case ADODB_FETCH_ASSOC:$this->fetchMode = MYSQL_ASSOC; break;
+		case ADODB_FETCH_NUM: $this->fetchMode = MYSQLI_NUM; break;
+		case ADODB_FETCH_ASSOC:$this->fetchMode = MYSQLI_ASSOC; break;
 		
 		case ADODB_FETCH_DEFAULT:
 		case ADODB_FETCH_BOTH:
-		default: $this->fetchMode = MYSQL_BOTH; break;
+		default: $this->fetchMode = MYSQLI_BOTH; break;
 		}
 	
 		$this->adodbFetchMode = $mode;
@@ -95,7 +95,7 @@ class ADORecordSet_mysqlt extends ADORecordSet_mysql{
 	
 	function MoveNext()
 	{
-		if (@$this->fields = mysql_fetch_array($this->_queryID,$this->fetchMode)) {
+		if (@$this->fields = mysqli_fetch_array($this->_queryID, $this->fetchMode)) {
 			$this->_currentRow += 1;
 			return true;
 		}
@@ -117,13 +117,13 @@ class ADORecordSet_ext_mysqlt extends ADORecordSet_mysqlt {
 		}
 		switch ($mode)
 		{
-		case ADODB_FETCH_NUM: $this->fetchMode = MYSQL_NUM; break;
-		case ADODB_FETCH_ASSOC:$this->fetchMode = MYSQL_ASSOC; break;
+		case ADODB_FETCH_NUM: $this->fetchMode = MYSQLI_NUM; break;
+		case ADODB_FETCH_ASSOC:$this->fetchMode = MYSQLI_ASSOC; break;
 		
 		case ADODB_FETCH_DEFAULT:
 		case ADODB_FETCH_BOTH:
 		default: 
-			$this->fetchMode = MYSQL_BOTH; break;
+			$this->fetchMode = MYSQLI_BOTH; break;
 		}
 		$this->adodbFetchMode = $mode;
 		$this->ADORecordSet($queryID);	

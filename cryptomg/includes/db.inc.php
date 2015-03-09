@@ -23,12 +23,12 @@ $db_user = "root";
 $db_pass = "default_mcir_db_password";
 $db_name = "cryptomg";
 
-$link = mysql_connect($db_host, $db_user, $db_pass);
+$link = ($GLOBALS["___mysqli_ston"] = mysqli_connect($db_host,  $db_user,  $db_pass));
 if(!$link)
 	die("database error");
 
-mysql_query("CREATE DATABASE IF NOT EXISTS $db_name");
-$db_select = mysql_select_db($db_name, $link);
+mysqli_query($GLOBALS["___mysqli_ston"], "CREATE DATABASE IF NOT EXISTS $db_name");
+$db_select = ((bool)mysqli_query( $link, "USE $db_name"));
 if(!$db_select)
 	die("can't select database");
 ?>

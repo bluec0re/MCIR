@@ -36,9 +36,9 @@ function checkAuth($username, $password){
 		return true;
 	}else{
 		$sql_check_auth = "SELECT * FROM challenge4_users WHERE username='$username'";
-		$query_check_auth = mysql_query($sql_check_auth) or die(mysql_error());
-		if(mysql_num_rows($query_check_auth)){
-			$result = mysql_fetch_array($query_check_auth);
+		$query_check_auth = mysqli_query($GLOBALS["___mysqli_ston"], $sql_check_auth) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+		if(mysqli_num_rows($query_check_auth)){
+			$result = mysqli_fetch_array($query_check_auth);
 			if($result['password'] == $password){
 				$authtoken = $result['id']."|".$result['email']."|".$result['username'];
 				$GLOBALS['username2'] = $result['username'];
