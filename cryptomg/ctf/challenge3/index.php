@@ -42,6 +42,7 @@ function checkKey($key, $p_key){
 					$hash= md5($k.$hash);
 				}
 				$key_hash .= $hash;
+                                sleep(1);
 			}else{ 
 				return false;
 			}
