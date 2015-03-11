@@ -91,7 +91,7 @@ if(isset($_REQUEST['submit'])){
 	
 	if(isset($_REQUEST['show_query']) and $_REQUEST['show_query'] == 'on') echo "<b>Resulting XML:</b><br>" . $displayxml . '<br><br>';
 	
-	$xmloptions = 0;
+	$xmloptions = 0 | LIBXML_PARSEHUGE;
 	
 	//Enable external DTD loading if the option is on
 	if(isset($_REQUEST['ext_dtd']) and $_REQUEST['ext_dtd'] == 'on') $xmloptions = $xmloptions | LIBXML_DTDLOAD;
